@@ -7,8 +7,12 @@ import java.nio.file.Paths;
 
 // will change only with json architecture changings, SRP adhered
 public class SmartHomeGsonReader implements SmartHomeReader {
-    public SmartHome Read(Object path_) {
-        String path = path_.toString();
+    String path;
+    public SmartHomeGsonReader(String path_){
+        path = path_;
+    }
+
+    public SmartHome Read() {
         Gson gson = new Gson();
         try {
             String json = new String(Files.readAllBytes(Paths.get(path)));
