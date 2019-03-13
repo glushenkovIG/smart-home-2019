@@ -4,7 +4,9 @@ import ru.sbt.mipt.oop.Door;
 import ru.sbt.mipt.oop.Event.CommandSender;
 import ru.sbt.mipt.oop.Event.EventHandler;
 import ru.sbt.mipt.oop.Room;
+import ru.sbt.mipt.oop.SmartHome.DoorsIterator;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
+import ru.sbt.mipt.oop.SmartHome.myIterator;
 
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.DOOR_OPEN;
@@ -22,11 +24,15 @@ public class DoorSensorEventHandler implements EventHandler {
     public void handleEvent(Object event_) {
         SensorEvent event = (SensorEvent) event_;
         if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-            for (Room room : smartHome.getRooms()) {
-                for (Door door : room.getDoors()) {
+            //DoorsIterator iterator = new DoorsIterator(smartHome);
+            for(Room room: smartHome.getRooms()){
+                for(Door door: room.getDoors()){
                     processDoor(event, room, door);
                 }
             }
+//            while(iterator.hasNext()){
+//                processDoor(event, iterator.getroom(), iterator.next());
+//            }
         }
     }
 
