@@ -1,13 +1,11 @@
 package ru.sbt.mipt.oop.SmartHome;
 
-import ru.sbt.mipt.oop.Door;
-import ru.sbt.mipt.oop.Light;
-import ru.sbt.mipt.oop.Room;
+import ru.sbt.mipt.oop.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SmartHome {
+public class SmartHome implements Actionable {
     Collection<Room> rooms;
 
     public SmartHome() {
@@ -49,5 +47,23 @@ public class SmartHome {
         }
 
         return null;
+    }
+
+    @Override
+    public void execute(Action action){
+        DoorsIterator doorsIterator = new DoorsIterator(this);
+        while (doorsIterator.hasNext()){
+            doorsIterator.next().execute(action);
+        }
+
+        RoomsIterator roomsIterator = new RoomsIterator(this);
+        while (roomsIterator.hasNext()){
+            roomsIterator.next().execute(action);
+        }
+
+        LightIterator lightIterator = new LightIterator(this);
+        while (lightIterator.hasNext()){
+            lightIterator.next().execute(action);
+        }
     }
 }

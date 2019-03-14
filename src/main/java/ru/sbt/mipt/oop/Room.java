@@ -2,7 +2,11 @@ package ru.sbt.mipt.oop;
 
 import java.util.Collection;
 
-public class Room {
+public class Room implements Actionable{
+    @Override
+    public void execute(Action action){
+
+    }
     private Collection<Light> lights;
     private Collection<Door> doors;
     private String name;

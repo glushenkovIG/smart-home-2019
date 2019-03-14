@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop.SmartHome;
 
-import ru.sbt.mipt.oop.Door;
 import ru.sbt.mipt.oop.Room;
 
 import java.util.Collection;
