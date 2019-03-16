@@ -16,7 +16,9 @@ public class SmartHomeGsonReader implements SmartHomeReader {
         Gson gson = new Gson();
         try {
             String json = new String(Files.readAllBytes(Paths.get(path)));
-            return (gson.fromJson(json, SmartHome.class));
+            SmartHome smartHome = gson.fromJson(json, SmartHome.class);
+            smartHome.normalize();
+            return smartHome;
 
         } catch (Exception IOException) {
             System.out.println("IOException");

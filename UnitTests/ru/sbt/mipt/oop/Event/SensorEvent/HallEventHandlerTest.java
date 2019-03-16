@@ -10,8 +10,6 @@ import ru.sbt.mipt.oop.SmartHome.SmartHome;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeGsonReader;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeReader;
 
-import static org.junit.Assert.*;
-
 public class HallEventHandlerTest {
     SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
     SmartHome smartHome = reader.Read();

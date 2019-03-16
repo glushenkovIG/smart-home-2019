@@ -2,11 +2,12 @@ package ru.sbt.mipt.oop.SmartHome;
 
 import ru.sbt.mipt.oop.Light;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class LightIterator implements myIterator<Light> {
-    public Collection<Light> lightCollection;
+    public Collection<Light> lightCollection = new ArrayList<>();
     public Iterator<Light> lightIterator;
 
     public LightIterator(SmartHome smartHome) {

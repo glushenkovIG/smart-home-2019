@@ -25,45 +25,51 @@ public class SmartHome implements Actionable {
     }
 
     public Door getDoorByID(String id){
-
-        for (Room room : rooms) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(id)){
-                    return door;
-                }
+        DoorsIterator doorIterator = new DoorsIterator(this);
+        Door door;
+        while (doorIterator.hasNext()){
+            door = doorIterator.next();
+            if (door.getId().equals(id)) {
+                return door;
             }
         }
-
+        System.out.println("Trying to call door with ID=" + id + ", but it doesn't exist.");
         return null;
     }
 
     public Light getLightByID(String id){
-        for (Room room : rooms) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(id)) {
-                    return light;
-                }
+        LightIterator lightIterator = new LightIterator(this);
+        Light light;
+        while (lightIterator.hasNext()){
+            light = lightIterator.next();
+            if (light.getId().equals(id)) {
+                return light;
             }
         }
-
+        System.out.println("Trying to call light with ID=" + id + ", but it doesn't exist.");
         return null;
     }
 
     @Override
     public void execute(Action action){
-        DoorsIterator doorsIterator = new DoorsIterator(this);
-        while (doorsIterator.hasNext()){
-            doorsIterator.next().execute(action);
-        }
+        rooms.forEach(room -> room.execute(action));
 
-        RoomsIterator roomsIterator = new RoomsIterator(this);
-        while (roomsIterator.hasNext()){
-            roomsIterator.next().execute(action);
-        }
-
-        LightIterator lightIterator = new LightIterator(this);
-        while (lightIterator.hasNext()){
-            lightIterator.next().execute(action);
-        }
+//        DoorsIterator doorsIterator = new DoorsIterator(this);
+//        while (doorsIterator.hasNext()){
+//            doorsIterator.next().execute(action);
+//        }
+//
+//        RoomsIterator roomsIterator = new RoomsIterator(this);
+//        while (roomsIterator.hasNext()){
+//            roomsIterator.next().execute(action);
+//        }
+//
+//        LightIterator lightIterator = new LightIterator(this);
+//        while (lightIterator.hasNext()){
+//            lightIterator.next().execute(action);
+//        }
+    }
+    void normalize(){
+        rooms.forEach(Room::normalize);
     }
 }

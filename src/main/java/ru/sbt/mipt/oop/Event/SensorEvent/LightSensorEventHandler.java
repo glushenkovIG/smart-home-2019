@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop.Event.SensorEvent;
 
+import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Event.EventHandler;
-import ru.sbt.mipt.oop.Light;
-import ru.sbt.mipt.oop.Room;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
+import static ru.sbt.mipt.oop.ActionType.*;
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.LIGHT_ON;
 
@@ -16,29 +16,14 @@ public class LightSensorEventHandler implements EventHandler {
 
     public void handleEvent(Object event_) {
         SensorEvent event = (SensorEvent) event_;
-        if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-            // событие от источника света
-            processLightEvent(event);
-        }
-    }
+        switch (event.getType()) {
+            case LIGHT_ON:
+                smartHome.execute(new Action(TURN_ON_LIGHT, event.getObjectId()));
+                break;
 
-    private void processLightEvent(SensorEvent event) {
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                processParticularLight(event, room, light);
-            }
-        }
-    }
-
-    private void processParticularLight(SensorEvent event, Room room, Light light) {
-        if (light.getId().equals(event.getObjectId())) {
-            if (event.getType() == LIGHT_ON) {
-                light.setOn(true);
-                System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
-            } else {
-                light.setOn(false);
-                System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
-            }
+            case LIGHT_OFF:
+                smartHome.execute(new Action(TURN_OFF_LIGHT, event.getObjectId()));
+                break;
         }
     }
 }

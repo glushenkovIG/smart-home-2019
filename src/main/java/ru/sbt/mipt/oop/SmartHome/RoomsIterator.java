@@ -2,16 +2,22 @@ package ru.sbt.mipt.oop.SmartHome;
 
 import ru.sbt.mipt.oop.Room;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class RoomsIterator implements myIterator {
-    private Collection<Room> roomCollection;
-
     private Iterator<Room> roomIterator;
 
     RoomsIterator(SmartHome smartHome) {
-        roomCollection = smartHome.getRooms();
+        if(smartHome == null){
+            System.out.println("Null" + this.getClass());
+        }
+        assert smartHome != null;
+        Collection<Room> rooms = smartHome.getRooms();
+        roomIterator = rooms.iterator();
+
+        Collection<Room> roomCollection = new ArrayList<>();
         while(roomIterator.hasNext()) {
             roomCollection.add(roomIterator.next());
         }

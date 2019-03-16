@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.Event.SensorEvent;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.Event.CommandSender;
 import ru.sbt.mipt.oop.Event.EventHandler;
 import ru.sbt.mipt.oop.Event.IOCommandSender;
@@ -10,7 +9,6 @@ import ru.sbt.mipt.oop.SmartHome.SmartHome;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeGsonReader;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeReader;
 
-import static org.junit.Assert.*;
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.LIGHT_ON;
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.LIGHT_OFF;
 
@@ -23,21 +21,19 @@ public class LightSensorEventHandlerTest {
 
     @Test
     public void unit1() {
-        SensorEventType sensorEventType = LIGHT_ON;
-        String objectId = "" + ((int) (10 * Math.random()));
-        handler.handleEvent(new SensorEvent(sensorEventType, objectId));
+        String objectId = "" + ((int) (1 + 3 * Math.random()));
+        handler.handleEvent(new SensorEvent(LIGHT_ON, objectId));
 
-        //Assert.assertEquals(false, smartHome.getLightByID(objectId).isOn());
-        Assert.assertEquals(1, 1);
+        Assert.assertEquals(true, smartHome.getLightByID(objectId).isOn());
+        //Assert.assertEquals(1, 1);
     }
 
     @Test
     public void unit2() {
-        SensorEventType sensorEventType = LIGHT_OFF;
-        String objectId = "" + ((int) (10 * Math.random()));
-        handler.handleEvent(new SensorEvent(sensorEventType, objectId));
+        String objectId = "" + ((int) (1 + 3 * Math.random()));
+        handler.handleEvent(new SensorEvent(LIGHT_OFF, objectId));
 
-        //Assert.assertEquals(false, smartHome.getLightByID(objectId).isOn());
-        Assert.assertEquals(1, 1);
+        Assert.assertEquals(false, smartHome.getLightByID(objectId).isOn());
+        //Assert.assertEquals(1, 1);
     }
 }
