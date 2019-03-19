@@ -29,7 +29,16 @@ public class HallEventHandler implements EventHandler {
     private void turnOffAllLight() {
         LightIterator lightIterator = new LightIterator(smartHome);
         while(lightIterator.hasNext()) {
-            smartHome.execute(new Action(TURN_OFF_LIGHT, lightIterator.next().getId()));
+            smartHome.execute(light_ -> {
+                if (light_ instanceof Light) {
+                    Light light = (Light) light_;
+
+                    if (light.getId().equals(lightIterator.next().getId())) {
+                        light.setOn(false);
+                        System.out.println("Light " + light.getId() + " in room " + light.getRoomName() + " was set off.");
+                    }
+                }
+            });
         }
     }
 }

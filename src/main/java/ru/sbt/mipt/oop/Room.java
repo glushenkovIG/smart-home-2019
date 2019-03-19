@@ -41,5 +41,4 @@ public class Room implements Actionable{
         lights.forEach(light -> light.execute(action));
         doors.forEach(door -> door.execute(action));
     }
-
 }

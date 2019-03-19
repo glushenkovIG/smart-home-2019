@@ -14,19 +14,7 @@ public class Light implements Actionable{
 
     @Override
     public void execute(Action action){
-        if (id.equals(action.getObjectId())) {
-            switch (action.getType()){
-                case TURN_ON_LIGHT:
-                    setOn(true);
-                    System.out.println("Light " + getId() + " in room " + room.getName() + " was turned on.");
-                    break;
-
-                case TURN_OFF_LIGHT:
-                    setOn(false);
-                    System.out.println("Light " + getId() + " in room " + room.getName() + " was turned off.");
-                    break;
-            }
-        }
+       action.execute(this);
     }
 
     public void setRoom(Room room){

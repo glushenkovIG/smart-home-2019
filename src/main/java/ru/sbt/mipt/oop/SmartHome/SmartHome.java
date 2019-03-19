@@ -53,21 +53,6 @@ public class SmartHome implements Actionable {
     @Override
     public void execute(Action action){
         rooms.forEach(room -> room.execute(action));
-
-//        DoorsIterator doorsIterator = new DoorsIterator(this);
-//        while (doorsIterator.hasNext()){
-//            doorsIterator.next().execute(action);
-//        }
-//
-//        RoomsIterator roomsIterator = new RoomsIterator(this);
-//        while (roomsIterator.hasNext()){
-//            roomsIterator.next().execute(action);
-//        }
-//
-//        LightIterator lightIterator = new LightIterator(this);
-//        while (lightIterator.hasNext()){
-//            lightIterator.next().execute(action);
-//        }
     }
     void normalize(){
         rooms.forEach(Room::normalize);
