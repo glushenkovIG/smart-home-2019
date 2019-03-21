@@ -6,7 +6,6 @@ import ru.sbt.mipt.oop.Event.EventHandler;
 import ru.sbt.mipt.oop.SmartHome.LightIterator;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
-import static ru.sbt.mipt.oop.ActionType.*;
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.DOOR_CLOSED;
 
 

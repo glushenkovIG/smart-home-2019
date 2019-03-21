@@ -1,9 +1,9 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.Event.EventHandler;
-import ru.sbt.mipt.oop.Event.CommandSender;
-import ru.sbt.mipt.oop.Event.IOCommandSender;
+import ru.sbt.mipt.oop.Alarm.Alarm;
+import ru.sbt.mipt.oop.Event.*;
 import ru.sbt.mipt.oop.Event.SensorEvent.*;
+import ru.sbt.mipt.oop.SmartHome.AlarmEventHandler;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeGsonReader;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeReader;
@@ -24,9 +24,12 @@ public class Application{
 
         SmartHome smartHome = reader.Read();
         Collection<EventHandler> handlers = new ArrayList<>();
-        handlers.add(new DoorSensorEventHandler(smartHome, sender));
-        handlers.add(new LightSensorEventHandler(smartHome));
-        handlers.add(new HallEventHandler(smartHome, sender));
+        Alarm alarm = new Alarm(smartHome);
+        handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new DoorSensorEventHandler(smartHome, sender)), alarm));
+        handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new LightSensorEventHandler(smartHome)), alarm));
+        handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new HallEventHandler(smartHome, sender)), alarm));
+
+        handlers.add(new AlarmEventHandler(alarm));
 
         // начинаем цикл обработки событий
 
