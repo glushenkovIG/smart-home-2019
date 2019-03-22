@@ -1,6 +1,7 @@
-package ru.sbt.mipt.oop.SmartHome;
+package ru.sbt.mipt.oop.SmartHomeIterators;
 
-import ru.sbt.mipt.oop.Room;
+import ru.sbt.mipt.oop.SmartHome.Room;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +10,7 @@ import java.util.Iterator;
 public class RoomsIterator implements myIterator {
     private Iterator<Room> roomIterator;
 
-    RoomsIterator(SmartHome smartHome) {
+    public RoomsIterator(SmartHome smartHome) {
         if(smartHome == null){
             System.out.println("Null" + this.getClass());
         }

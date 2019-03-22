@@ -1,6 +1,7 @@
-package ru.sbt.mipt.oop.SmartHome;
+package ru.sbt.mipt.oop.SmartHomeIterators;
 
-import ru.sbt.mipt.oop.Door;
+import ru.sbt.mipt.oop.SmartHome.Door;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
 import java.util.ArrayList;
 import java.util.Collection;

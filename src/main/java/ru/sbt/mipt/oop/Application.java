@@ -3,7 +3,10 @@ package ru.sbt.mipt.oop;
 import ru.sbt.mipt.oop.Alarm.Alarm;
 import ru.sbt.mipt.oop.Event.*;
 import ru.sbt.mipt.oop.Event.SensorEvent.*;
-import ru.sbt.mipt.oop.SmartHome.AlarmEventHandler;
+import ru.sbt.mipt.oop.Event.SensorEvent.AlarmEventHandler;
+import ru.sbt.mipt.oop.NextEventGetters.NextEventGetter;
+import ru.sbt.mipt.oop.NextEventGetters.RandomAlarmNextEventGetter;
+import ru.sbt.mipt.oop.NextEventGetters.RandomSensorNextEventGetter;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeGsonReader;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeReader;
@@ -16,15 +19,14 @@ public class Application{
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
         SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
-        CommandSender sender = new IOCommandSender();
-
+        SmartHome smartHome = reader.Read();
 
         ////////////////////////////////////////////////////////////
         // добавляем обработчики для возможных событий в коллекцию
-
-        SmartHome smartHome = reader.Read();
         Collection<EventHandler> handlers = new ArrayList<>();
+        CommandSender sender = new IOCommandSender();
         Alarm alarm = new Alarm(smartHome);
+
         handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new DoorSensorEventHandler(smartHome, sender)), alarm));
         handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new LightSensorEventHandler(smartHome)), alarm));
         handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new HallEventHandler(smartHome, sender)), alarm));
@@ -32,15 +34,19 @@ public class Application{
         handlers.add(new AlarmEventHandler(alarm));
 
         // начинаем цикл обработки событий
+        ArrayList<NextEventGetter> nextEventGetters = new ArrayList<>();
+        nextEventGetters.add(new RandomSensorNextEventGetter());
+        nextEventGetters.add(new RandomAlarmNextEventGetter());
 
-        SensorEvent event = RandomNextEventGetter.getNextSensorEvent();
+        NextEventGetter nextEventGetter = new NextEventGetter(nextEventGetters);
+        SensorEvent event = nextEventGetter.getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);
             for(EventHandler handler: handlers){
                 handler.handleEvent(event);
             }
 
-            event = RandomNextEventGetter.getNextSensorEvent();
+            event = nextEventGetter.getNextSensorEvent();
         }
     }
 }

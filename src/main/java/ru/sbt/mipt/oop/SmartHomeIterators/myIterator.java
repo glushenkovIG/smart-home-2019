@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.SmartHome;
+package ru.sbt.mipt.oop.SmartHomeIterators;
 
 public interface myIterator<T>{
     boolean hasNext();

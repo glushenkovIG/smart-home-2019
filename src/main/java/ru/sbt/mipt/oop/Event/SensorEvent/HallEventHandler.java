@@ -1,9 +1,9 @@
 package ru.sbt.mipt.oop.Event.SensorEvent;
 
-import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.Event.CommandSender;
 import ru.sbt.mipt.oop.Event.EventHandler;
-import ru.sbt.mipt.oop.SmartHome.LightIterator;
+import ru.sbt.mipt.oop.SmartHomeIterators.LightIterator;
+import ru.sbt.mipt.oop.SmartHome.Light;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
 import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.DOOR_CLOSED;

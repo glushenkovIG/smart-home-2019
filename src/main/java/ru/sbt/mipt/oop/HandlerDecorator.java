@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop.Event;
+package ru.sbt.mipt.oop;
+
+import ru.sbt.mipt.oop.Event.EventHandler;
 
 public class HandlerDecorator implements EventHandler {
     EventHandler handler;

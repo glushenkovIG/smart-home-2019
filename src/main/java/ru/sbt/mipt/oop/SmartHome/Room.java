@@ -1,7 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.SmartHome;
 
 import ru.sbt.mipt.oop.Action.Action;
 import ru.sbt.mipt.oop.Action.Actionable;
+import ru.sbt.mipt.oop.SmartHome.Door;
+import ru.sbt.mipt.oop.SmartHome.Light;
 
 import java.util.Collection;
 

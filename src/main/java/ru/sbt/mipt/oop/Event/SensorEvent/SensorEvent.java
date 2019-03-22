@@ -11,6 +11,10 @@ public class SensorEvent implements Event {
         this.type = type;
         this.objectId = objectId;
     }
+    public SensorEvent(SensorEventType type){
+        this.type = type;
+        this.objectId = null;
+    }
 
     public SensorEventType getType() {
         return type;

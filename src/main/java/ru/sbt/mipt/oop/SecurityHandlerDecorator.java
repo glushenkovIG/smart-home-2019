@@ -1,6 +1,8 @@
-package ru.sbt.mipt.oop.Event;
+package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.Alarm.Alarm;
+import ru.sbt.mipt.oop.Event.EventHandler;
+import ru.sbt.mipt.oop.HandlerDecorator;
 
 public class SecurityHandlerDecorator extends HandlerDecorator {
     Alarm alarm;

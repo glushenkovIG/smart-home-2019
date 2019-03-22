@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.SmartHome;
+package ru.sbt.mipt.oop.Event.SensorEvent;
 
 import ru.sbt.mipt.oop.Alarm.Alarm;
 import ru.sbt.mipt.oop.Event.EventHandler;
@@ -16,18 +16,13 @@ public class AlarmEventHandler implements EventHandler {
     @Override
     public void handleEvent(Object o) {
         SensorEvent event = (SensorEvent) o;
-        if (alarm.isActivated()) {
-            switch (event.getType()) {
-                case ALARM_TURNED_OFF:
-                    alarm.deActivate();
-                    return;
-
-                case ALARM_TURNED_ON:
-                    System.out.println("Already activated");
-                    return;
-            }
-            alarm.switchToShoutingMode();
-        } else if(event.getType() == ALARM_TURNED_ON){
+        switch(event.getType()){
+            case ALARM_TURNED_ON:
+                alarm.activate();
+            case ALARM_TURNED_OFF:
+                alarm.deActivate();
+            default:
+                alarm.switchToShoutingMode();
 
         }
     }
