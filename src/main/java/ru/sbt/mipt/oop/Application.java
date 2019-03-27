@@ -23,6 +23,37 @@ public class Application{
 
         ////////////////////////////////////////////////////////////
         // добавляем обработчики для возможных событий в коллекцию
+        Collection<EventHandler> handlers = setEventHandlers(smartHome);
+
+        // начинаем цикл обработки событий
+        ArrayList<NextEventGetter> nextEventGetters = setNextEventGetters();
+
+        NextEventGetter nextEventGetter = new NextEventGetter(nextEventGetters);
+        SensorEvent event = nextEventGetter.getNextSensorEvent();
+        while (event != null) {
+            System.out.println("Got event: " + event);
+            for(EventHandler handler: handlers){
+                handler.handleEvent(event);
+            }
+            event = nextEventGetter.getNextSensorEvent();
+        }
+
+        /////
+        SensorEventApiAdapter apiHandler = new SensorEventApiAdapter(setEventHandlers(smartHome));
+        /////
+        SensorEventsManager sensorEventsManager = new SensorEventsManager();
+        sensorEventsManager.registerEventHandler(event_ -> apiHandler.handle(event_));
+        sensorEventsManager.start();
+    }
+
+    private static ArrayList<NextEventGetter> setNextEventGetters() {
+        ArrayList<NextEventGetter> nextEventGetters = new ArrayList<>();
+        nextEventGetters.add(new RandomSensorNextEventGetter());
+        nextEventGetters.add(new RandomAlarmNextEventGetter());
+        return nextEventGetters;
+    }
+
+    private static Collection<EventHandler> setEventHandlers(SmartHome smartHome) {
         Collection<EventHandler> handlers = new ArrayList<>();
         CommandSender sender = new IOCommandSender();
         Alarm alarm = new Alarm(smartHome);
@@ -32,21 +63,6 @@ public class Application{
         handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new HallEventHandler(smartHome, sender)), alarm));
 
         handlers.add(new AlarmEventHandler(alarm));
-
-        // начинаем цикл обработки событий
-        ArrayList<NextEventGetter> nextEventGetters = new ArrayList<>();
-        nextEventGetters.add(new RandomSensorNextEventGetter());
-        nextEventGetters.add(new RandomAlarmNextEventGetter());
-
-        NextEventGetter nextEventGetter = new NextEventGetter(nextEventGetters);
-        SensorEvent event = nextEventGetter.getNextSensorEvent();
-        while (event != null) {
-            System.out.println("Got event: " + event);
-            for(EventHandler handler: handlers){
-                handler.handleEvent(event);
-            }
-
-            event = nextEventGetter.getNextSensorEvent();
-        }
+        return handlers;
     }
 }
