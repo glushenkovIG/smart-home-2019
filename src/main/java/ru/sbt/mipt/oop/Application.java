@@ -17,34 +17,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Application{
-    public static void main(String... args) throws IOException {
-        // считываем состояние дома из файла
-        SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
-        SmartHome smartHome = reader.Read();
-
-        ////////////////////////////////////////////////////////////
-        // добавляем обработчики для возможных событий в коллекцию
+    public static void main(String... args) {
+        SmartHome smartHome = getSmartHome();
         Collection<EventHandler> handlers = setEventHandlers(smartHome);
-
-        // начинаем цикл обработки событий
-        ArrayList<NextEventGetter> nextEventGetters = setNextEventGetters();
-
-        NextEventGetter nextEventGetter = new NextEventGetter(nextEventGetters);
-        SensorEvent event = nextEventGetter.getNextSensorEvent();
-        while (event != null) {
-            System.out.println("Got event: " + event);
-            for(EventHandler handler: handlers){
-                handler.handleEvent(event);
-            }
-            event = nextEventGetter.getNextSensorEvent();
-        }
-
-        /////
-        SensorEventHandlerApiAdapter apiHandler = new SensorEventHandlerApiAdapter(setEventHandlers(smartHome));
-        /////
+        SensorEventHandlerApiAdapter apiHandler = new SensorEventHandlerApiAdapter(handlers);
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
+
         sensorEventsManager.registerEventHandler(event_ -> apiHandler.handle(event_));
         sensorEventsManager.start();
+    }
+
+    private static SmartHome getSmartHome() {
+        SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
+        return reader.Read();
     }
 
     private static ArrayList<NextEventGetter> setNextEventGetters() {
