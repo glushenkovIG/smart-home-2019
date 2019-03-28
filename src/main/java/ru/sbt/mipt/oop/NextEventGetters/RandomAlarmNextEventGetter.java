@@ -8,14 +8,16 @@ import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.ALARM_TURNED_ON;
 
 public class RandomAlarmNextEventGetter extends NextEventGetter {
     public RandomAlarmNextEventGetter() {
-        super();
+        this.eventGetters = new ArrayList<>();
     }
 
     RandomAlarmNextEventGetter(ArrayList<NextEventGetter> a) {
         super(a);
     }
 
-    public static SensorEvent getNextSensorEvent() {
+    @Override
+    public SensorEvent getNextSensorEvent(){
         return new SensorEvent(ALARM_TURNED_ON);
     }
+
 }

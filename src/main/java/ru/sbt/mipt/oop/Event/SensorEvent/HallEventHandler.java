@@ -20,6 +20,9 @@ public class HallEventHandler implements EventHandler {
     @Override
     public void handleEvent(Object o) {
         SensorEvent event = (SensorEvent) o;
+        if(event.getObjectId() == null){
+            return;
+        }
         if(event.getType() == DOOR_CLOSED & smartHome.getDoorByID(event.getObjectId()).getRoomName().equals("hall")){
             turnOffAllLight();
         }

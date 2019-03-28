@@ -37,7 +37,7 @@ public class SmartHome implements Actionable {
             }
         }
         System.out.println("Trying to call door with ID=" + id + ", but it doesn't exist.");
-        return null;
+        return new Door();
     }
 
     public Light getLightByID(String id){

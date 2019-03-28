@@ -2,9 +2,6 @@ package ru.sbt.mipt.oop.Event.SensorEvent;
 
 import ru.sbt.mipt.oop.Alarm.Alarm;
 import ru.sbt.mipt.oop.Event.EventHandler;
-import ru.sbt.mipt.oop.Event.SensorEvent.SensorEvent;
-
-import static ru.sbt.mipt.oop.Event.SensorEvent.SensorEventType.ALARM_TURNED_ON;
 
 public class AlarmEventHandler implements EventHandler {
     Alarm alarm;
@@ -16,6 +13,9 @@ public class AlarmEventHandler implements EventHandler {
     @Override
     public void handleEvent(Object o) {
         SensorEvent event = (SensorEvent) o;
+        if (event == null | event.getType() == null){
+            return;
+        }
         switch(event.getType()){
             case ALARM_TURNED_ON:
                 alarm.activate();

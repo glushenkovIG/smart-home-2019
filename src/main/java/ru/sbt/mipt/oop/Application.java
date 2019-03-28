@@ -10,6 +10,7 @@ import ru.sbt.mipt.oop.NextEventGetters.RandomSensorNextEventGetter;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeGsonReader;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeReader;
+import ru.sbt.mipt.oop.events.SensorEventsManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Application{
         }
 
         /////
-        SensorEventApiAdapter apiHandler = new SensorEventApiAdapter(setEventHandlers(smartHome));
+        SensorEventHandlerApiAdapter apiHandler = new SensorEventHandlerApiAdapter(setEventHandlers(smartHome));
         /////
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
         sensorEventsManager.registerEventHandler(event_ -> apiHandler.handle(event_));

@@ -13,6 +13,11 @@ public class Door implements Actionable {
         this.id = id;
     }
 
+    public Door() {
+        this.id = null;
+        this.isOpen = false;
+    }
+
     @Override
     public void execute(Action action){
         action.execute(this);
@@ -23,6 +28,9 @@ public class Door implements Actionable {
     }
 
     public String getRoomName(){
+        if (room == null){
+            return "NotExistingDoor";
+        }
         return room.getName();
     }
 

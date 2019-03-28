@@ -15,10 +15,11 @@ public class NextEventGetter {
         this.eventGetters = a;
     }
 
-    public static SensorEvent getNextSensorEvent(){
+    public SensorEvent getNextSensorEvent(){
         SensorEvent ans = eventGetters.get(i).getNextSensorEvent();
         i += 1;
         i = i % eventGetters.size();
         return ans;
     }
+
 }
