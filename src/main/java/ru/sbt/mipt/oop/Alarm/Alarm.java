@@ -3,10 +3,16 @@ package ru.sbt.mipt.oop.Alarm;
 import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
 public class Alarm {
-    boolean isActivated = false;
-    AlarmState alarmState = new DeactivatedAlarmState(this);
+    /*
+    0 - deactivated
+    1 - activated
+    2 - shouting
+     */
+    private AlarmStateType stateId = AlarmStateType.DEACTIVE_MODE;
+    private AlarmState alarmState = new DeactivatedAlarmState(this);
 
     public Alarm(SmartHome smartHome){
+        /* todo why empty constructor*/
     }
 
     public void activate(){
@@ -19,11 +25,13 @@ public class Alarm {
         alarmState.switchToShoutingMode();
     }
 
-    public boolean isActivated() {
-        return isActivated;
-    }
-    public void setState(AlarmState alarmState){
+    void setState(AlarmState alarmState){
         this.alarmState = alarmState;
     }
-    public void setActivatedFlag(boolean a){}
+
+    public void setActivatedFlag(AlarmStateType a){ stateId = a;}
+
+    public AlarmStateType getStateType() {
+        return stateId;
+    }
 }

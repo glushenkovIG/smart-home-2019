@@ -19,10 +19,13 @@ public class AlarmEventHandler implements EventHandler {
         switch(event.getType()){
             case ALARM_TURNED_ON:
                 alarm.activate();
+                break;
             case ALARM_TURNED_OFF:
                 alarm.deActivate();
+                break;
             default:
                 alarm.switchToShoutingMode();
+                break;
 
         }
     }

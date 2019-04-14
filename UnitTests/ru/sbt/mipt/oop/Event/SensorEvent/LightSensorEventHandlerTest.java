@@ -16,8 +16,7 @@ public class LightSensorEventHandlerTest {
     SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
     SmartHome smartHome = reader.Read();
 
-    CommandSender sender = new IOCommandSender();
-    EventHandler handler = new DoorSensorEventHandler(smartHome, sender);
+    EventHandler handler = new LightSensorEventHandler(smartHome);
 
     @Test
     public void unit1() {

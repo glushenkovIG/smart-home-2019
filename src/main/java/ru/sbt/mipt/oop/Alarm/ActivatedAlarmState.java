@@ -6,19 +6,19 @@ public class ActivatedAlarmState extends AlarmState {
     }
 
     @Override
-    public void activate() {
+    void activate() {
 
     }
 
     @Override
     public void deActivate() {
         alarm.setState(new DeactivatedAlarmState(alarm));
-        alarm.setActivatedFlag(false);
+        alarm.setActivatedFlag(AlarmStateType.DEACTIVE_MODE);
     }
 
     @Override
     public void switchToShoutingMode() {
         alarm.setState(new ShoutingAlarmState(alarm));
-        alarm.setActivatedFlag(false);
+        alarm.setActivatedFlag(AlarmStateType.SHOUTING_MODE);
     }
 }

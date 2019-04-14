@@ -25,16 +25,14 @@ import ru.sbt.mipt.oop.Event.SensorEvent.SensorEvent;
 import java.util.Collection;
 
 public class SensorEventHandlerApiAdapter {
-    Collection<EventHandler> handlers;
+    EventHandler handler;
 
-    SensorEventHandlerApiAdapter(Collection<EventHandler> handlers){
-        this.handlers = handlers;
+    SensorEventHandlerApiAdapter(EventHandler handler){
+        this.handler = handler;
     }
 
     void handle(Object event_){
         SensorEvent event = ApiEvent2SensorEventAdaptor.adapt(event_);
-        for(EventHandler handler: handlers){
-            handler.handleEvent(event);
-        }
+        handler.handleEvent(event);
     }
 }

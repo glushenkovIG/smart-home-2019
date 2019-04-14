@@ -12,7 +12,6 @@ import ru.sbt.mipt.oop.SmartHome.SmartHomeGsonReader;
 import ru.sbt.mipt.oop.SmartHome.SmartHomeReader;
 import ru.sbt.mipt.oop.events.SensorEventsManager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,11 +19,21 @@ public class Application{
     public static void main(String... args) {
         SmartHome smartHome = getSmartHome();
         Collection<EventHandler> handlers = setEventHandlers(smartHome);
-        SensorEventHandlerApiAdapter apiHandler = new SensorEventHandlerApiAdapter(handlers);
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-
-        sensorEventsManager.registerEventHandler(event_ -> apiHandler.handle(event_));
+        registerEventHandlers(sensorEventsManager, handlers);
         sensorEventsManager.start();
+
+        /* todo add password to alarm */
+        /* todo rewrite Adaptor */
+        /* todo do missed hw */
+        /* todo add spring impl */
+    }
+
+    private static void registerEventHandlers(SensorEventsManager sensorEventsManager, Collection<EventHandler> handlers) {
+        for(EventHandler handler: handlers) {
+            SensorEventHandlerApiAdapter apiAdapter = new SensorEventHandlerApiAdapter(handler);
+            sensorEventsManager.registerEventHandler(event_ -> apiAdapter.handle(event_));
+        }
     }
 
     private static SmartHome getSmartHome() {

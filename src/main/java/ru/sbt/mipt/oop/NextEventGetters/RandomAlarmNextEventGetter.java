@@ -16,6 +16,7 @@ public class RandomAlarmNextEventGetter extends NextEventGetter {
     }
 
     @Override
+    /* todo add normal random */
     public SensorEvent getNextSensorEvent(){
         return new SensorEvent(ALARM_TURNED_ON);
     }

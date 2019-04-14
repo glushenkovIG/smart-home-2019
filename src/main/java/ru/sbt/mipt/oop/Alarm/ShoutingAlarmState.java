@@ -13,7 +13,7 @@ public class ShoutingAlarmState extends AlarmState {
     @Override
     public void deActivate() {
         alarm.setState(new DeactivatedAlarmState(alarm));
-        alarm.setActivatedFlag(false);
+        alarm.setActivatedFlag(AlarmStateType.DEACTIVE_MODE);
     }
 
     @Override

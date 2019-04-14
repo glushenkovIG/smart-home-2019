@@ -9,7 +9,7 @@ public class SensorEventsManager {
     private Collection<EventHandler> handlers = new ArrayList<>();
 
     public void registerEventHandler(EventHandler handler) {
-        this.handlers.add(handler);
+        handlers.add(handler);
     }
 
     public void start() {
