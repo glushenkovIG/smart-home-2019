@@ -14,9 +14,7 @@ public class DeactivatedAlarmState extends AlarmState {
     }
 
     @Override
-    public void deActivate() {
-
-    }
+    public void deActivate() {}
 
     @Override
     public void switchToShoutingMode() {

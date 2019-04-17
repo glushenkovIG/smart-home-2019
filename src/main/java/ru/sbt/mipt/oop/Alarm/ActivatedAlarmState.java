@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.Alarm;
 
 public class ActivatedAlarmState extends AlarmState {
-    public ActivatedAlarmState(Alarm alarm) {
+    ActivatedAlarmState(Alarm alarm) {
         super(alarm);
     }
 

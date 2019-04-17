@@ -51,7 +51,7 @@ public class Application{
     private static Collection<EventHandler> setEventHandlers(SmartHome smartHome) {
         Collection<EventHandler> handlers = new ArrayList<>();
         CommandSender sender = new IOCommandSender();
-        Alarm alarm = new Alarm(smartHome);
+        Alarm alarm = new Alarm(smartHome, "MyStrongPassword");
 
         handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new DoorSensorEventHandler(smartHome, sender)), alarm));
         handlers.add(new SecurityHandlerDecorator(new HandlerDecorator(new LightSensorEventHandler(smartHome)), alarm));

@@ -11,10 +11,10 @@ import ru.sbt.mipt.oop.NextEventGetters.NextEventGetter;
 import ru.sbt.mipt.oop.NextEventGetters.RandomSensorNextEventGetter;
 
 public class AlarmEventHandlerTest {
-    SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
-    SmartHome smartHome = reader.Read();
-    Alarm alarm = new Alarm(smartHome);
-    AlarmEventHandler handler = new AlarmEventHandler(alarm);
+    private SmartHomeReader reader = new SmartHomeGsonReader("smart-home-1.js");
+    private SmartHome smartHome = reader.Read();
+    private Alarm alarm = new Alarm(smartHome, "MyStrongPass");
+    private AlarmEventHandler handler = new AlarmEventHandler(alarm);
 
     @Test
     public void unit1() {

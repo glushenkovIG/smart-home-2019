@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Alarm.Alarm;
 import ru.sbt.mipt.oop.Event.EventHandler;
 
 public class AlarmEventHandler implements EventHandler {
-    Alarm alarm;
+    private Alarm alarm;
 
     public AlarmEventHandler(Alarm alarm) {
         this.alarm = alarm;
@@ -13,15 +13,13 @@ public class AlarmEventHandler implements EventHandler {
     @Override
     public void handleEvent(Object o) {
         SensorEvent event = (SensorEvent) o;
-        if (event == null | event.getType() == null){
-            return;
-        }
+        assert event != null;
         switch(event.getType()){
             case ALARM_TURNED_ON:
-                alarm.activate();
+                alarm.activate(alarm.getPassword());
                 break;
             case ALARM_TURNED_OFF:
-                alarm.deActivate();
+                alarm.deActivate(alarm.getPassword());
                 break;
             default:
                 alarm.switchToShoutingMode();

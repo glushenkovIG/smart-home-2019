@@ -8,19 +8,27 @@ public class Alarm {
     1 - activated
     2 - shouting
      */
+    private final String password;
     private AlarmStateType stateId = AlarmStateType.DEACTIVE_MODE;
     private AlarmState alarmState = new DeactivatedAlarmState(this);
 
-    public Alarm(SmartHome smartHome){
+    public Alarm(SmartHome smartHome, String password){
+        this.password = password;
         /* todo why empty constructor*/
     }
 
-    public void activate(){
-        alarmState.activate();
+    public void activate(String password){
+        if(checkPassword(password)) {
+            alarmState.activate();
+        }
     }
-    public void deActivate(){
-        alarmState.deActivate();
+
+    public void deActivate(String password){
+        if(checkPassword(password)) {
+            alarmState.deActivate();
+        }
     }
+
     public void switchToShoutingMode(){
         alarmState.switchToShoutingMode();
     }
@@ -29,9 +37,17 @@ public class Alarm {
         this.alarmState = alarmState;
     }
 
-    public void setActivatedFlag(AlarmStateType a){ stateId = a;}
+    void setActivatedFlag(AlarmStateType a){ stateId = a;}
 
     public AlarmStateType getStateType() {
         return stateId;
+    }
+
+    private boolean checkPassword(String password){
+        return password.equals(this.password);
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
