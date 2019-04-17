@@ -1,4 +1,4 @@
-# smart-home
+catafa# smart-home
 
 Project Smart Home implements 'smart home''.
 The house has sensors which are connected to a central server and send events in case of lights on/off doors open/close.
