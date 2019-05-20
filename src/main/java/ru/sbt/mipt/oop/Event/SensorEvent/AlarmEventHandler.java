@@ -14,6 +14,7 @@ public class AlarmEventHandler implements EventHandler {
     public void handleEvent(Object o) {
         SensorEvent event = (SensorEvent) o;
         assert event != null;
+        System.out.println(event);
         switch(event.getType()){
             case ALARM_TURNED_ON:
                 alarm.activate(alarm.getPassword());
@@ -24,7 +25,6 @@ public class AlarmEventHandler implements EventHandler {
             default:
                 alarm.switchToShoutingMode();
                 break;
-
         }
     }
 }

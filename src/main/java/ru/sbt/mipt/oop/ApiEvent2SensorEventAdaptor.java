@@ -6,7 +6,7 @@ import ru.sbt.mipt.oop.events.CCSensorEvent;
 
 public class ApiEvent2SensorEventAdaptor {
 
-     public static SensorEvent adapt(Object o) {
+     public static SensorEvent adapt(Object o) throws ClassCastException {
      CCSensorEvent ccsevent = (CCSensorEvent) o;
          switch (ccsevent.getEventType()){
              case "LightIsOn":
@@ -22,8 +22,7 @@ public class ApiEvent2SensorEventAdaptor {
                  return new SensorEvent(SensorEventType.DOOR_CLOSED, ccsevent.getObjectId());
 
              default:
-                 System.out.println("Type <" + ccsevent.getEventType() + "> is not supported.");
-                 return new SensorEvent();
+                 throw new ClassCastException();
          }
      }
 }
